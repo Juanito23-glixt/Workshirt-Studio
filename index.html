@@ -3,134 +3,191 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Big Dream | Printed Shirts</title>
+  <title>Big Dream | Workshirt Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+      color: #f0c040;
+    }
+
+    header {
+      background-color: #000;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 2px solid #f0c040;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #f0c040;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 16px;
+      color: #ffffffcc;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+
+    .product {
+      background-color: #111;
+      border: 1px solid #f0c040;
+      border-radius: 8px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 0 10px #f0c04044;
+    }
+
+    .product img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    .product h3 {
+      margin-top: 15px;
+      color: #f0c040;
+    }
+
+    .product p {
+      font-size: 14px;
+      color: #ffffffbb;
+      margin: 10px 0;
+    }
+
+    .product button {
+      background-color: #f0c040;
+      color: #000;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .product button:hover {
+      background-color: #ffd700;
+    }
+
+    /* Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal-content {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      color: #f0c040;
+    }
+
+    #modal-content input,
+    #modal-content textarea {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #f0c04088;
+      background: #000;
+      color: #f0c040;
+      border-radius: 5px;
+    }
+
+    #modal-content button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #f0c040;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #modal-content small {
+      display: block;
+      margin-top: 5px;
+      font-size: 12px;
+      color: #ffffffaa;
+    }
+
+  </style>
 </head>
 <body>
+
   <header>
     <h1>Welcome to Big Dream</h1>
-    <p>Printed shirts crafted with passion — wear the work behind every design.</p>
-    <p style="font-style: italic;">We specialize in bulk custom prints made for teams, events, and bold expressions.</p>
+    <p>Printed work shirts crafted with passion — wear the story behind every design.</p>
   </header>
 
-  <main>
-    <section class="products">
-      <div class="product">
-        <img src="https://i.ibb.co/gZyH8tC1/IMG-5714.jpg" alt="Shirt 1" />
-        <h3>hoddie</h3>
-        <p>Send order to get price</p>
-        <button onclick="openModal('hoddie')">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/200" alt="Shirt 2" />
-        <h3>White Logo Tee</h3>
-        <p>$22</p>
-        <button onclick="openModal('White Logo Tee', 22)">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/200" alt="Shirt 3" />
-        <h3>Gold Print Tee</h3>
-        <p>$28</p>
-        <button onclick="openModal('Gold Print Tee', 28)">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/200" alt="Shirt 4" />
-        <h3>Urban Camo Tee</h3>
-        <p>$30</p>
-        <button onclick="openModal('Urban Camo Tee', 30)">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/200" alt="Shirt 5" />
-        <h3>Minimal Text Tee</h3>
-        <p>$24</p>
-        <button onclick="openModal('Minimal Text Tee', 24)">Add to Cart</button>
-      </div>
-    </section>
+  <section class="products">
+    <div class="product">
+      <img src="https://i.ibb.co/gZyH8tC1/IMG-5714.jpg" alt="Work Shirt 1" />
+      <h3>Custom Printed Tee</h3>
+      <p>Get the price when you order</p>
+      <button onclick="openModal('Custom Printed Tee')">Add to Cart</button>
+    </div>
+    <!-- Puedes duplicar y cambiar los datos para más productos -->
+  </section>
 
-    <section class="cart">
-      <h2>Your Cart</h2>
-      <ul id="cart-items"></ul>
-      <button onclick="checkout()">Checkout via WhatsApp</button>
-    </section>
-  </main>
+  <!-- Modal -->
+  <div id="modal">
+    <div id="modal-content">
+      <h2 id="product-name"></h2>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" min="1" placeholder="e.g. 12" />
 
-  <div id="modal" class="modal" style="display:none;">
-    <div class="modal-content">
-      <h3 id="modal-title"></h3>
-      
-      <label for="cantidad">Quantity:</label>
-      <input type="number" id="cantidad" min="1" value="1" />
-      
-      <label for="instrucciones">
-        Design Notes:
-        <span style="font-size: 0.85em; color: #c59d5f;">
-          (Please send logo image separately on WhatsApp after ordering)
-        </span>
-      </label>
-      <textarea id="instrucciones" placeholder="E.g. Logo on front center in gold ink"></textarea>
-      
-      <p style="font-size: 0.9em; margin-top: 10px; color: #ccc;">
-        WhatsApp your logo/design to: <strong style="color: #c59d5f;">+1 (240) 921 9018</strong>
-      </p>
-      
-      <button onclick="confirmAdd()">Confirm</button>
+      <label for="notes">Design Notes:</label>
+      <textarea id="notes" rows="4" placeholder="e.g. Logo on the left side of the chest"></textarea>
+      <small>📎 Send logo separately via WhatsApp after placing your order.</small>
+      <small>📱 WhatsApp: +1 (240) 921 9018</small>
+
+      <button onclick="sendOrder()">Place Order</button>
     </div>
   </div>
 
   <script>
-    let cart = [];
-    let modalItem = null;
-
-    function openModal(name, price) {
-      modalItem = { name, price };
-      document.getElementById("modal-title").textContent = name;
-      document.getElementById("cantidad").value = 1;
-      document.getElementById("instrucciones").value = '';
+    function openModal(productName) {
       document.getElementById("modal").style.display = "flex";
+      document.getElementById("product-name").innerText = productName;
     }
 
-    function confirmAdd() {
-      const qty = parseInt(document.getElementById("cantidad").value);
-      if (isNaN(qty) || qty < 1) {
-        alert("Please enter a valid quantity (1 or more).");
-        return;
-      }
-      const notes = document.getElementById("instrucciones").value.trim();
-      cart.push({ ...modalItem, qty, notes });
-      document.getElementById("modal").style.display = "none";
-      renderCart();
-    }
+    function sendOrder() {
+      const name = document.getElementById("product-name").innerText;
+      const qty = document.getElementById("quantity").value;
+      const notes = document.getElementById("notes").value;
 
-    function renderCart() {
-      const list = document.getElementById("cart-items");
-      list.innerHTML = "";
-      cart.forEach((item) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${item.name}</strong> — $${item.price} x ${item.qty}<br><em>${item.notes || ""}</em>`;
-        list.appendChild(li);
-      });
-    }
+      const message = `Hello, I'm interested in ordering:\n\n${name}\nQuantity: ${qty}\nNotes: ${notes}\n\nI'll send the logo via WhatsApp.`;
+      const url = `https://wa.me/12409219018?text=${encodeURIComponent(message)}`;
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      let message = "Hello! I'd like to place an order:%0A";
-      cart.forEach(item => {
-        message += `• ${item.name} — ${item.qty} pcs — $${item.price * item.qty}%0A  Notes: ${item.notes || 'N/A'}%0A`;
-      });
-      const phone = "12409219018";
-      const url = `https://wa.me/${phone}?text=${message}`;
       window.open(url, "_blank");
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       const modal = document.getElementById("modal");
-      if (event.target === modal) {
+      if (event.target == modal) {
         modal.style.display = "none";
       }
-    }
+    };
   </script>
 </body>
 </html>
