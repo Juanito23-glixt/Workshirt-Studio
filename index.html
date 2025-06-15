@@ -230,15 +230,4 @@
       });
       const total = document.getElementById("total").textContent;
       message += `Total: $${total}`;
-      const phone = "YOUR_PHONE_NUMBER"; // Replace with your real number
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    window.onclick = function(event) {
-      if (event.target === document.getElementById("modal")) {
-        document.getElementById("modal").style.display = "none";
-      }
-    }
-  </script>
-</body>
-</html>
+      const phone = "YOUR_PHONE_NUMBER"; // Replace with your real number, e.g. 123456789
