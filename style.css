@@ -43,7 +43,7 @@ header p {
 
 .product img {
   width: 100%;
-  max-width: 400px;
+  max-width: 200px;
   height: auto;
   object-fit: cover;
   border-radius: 8px;
