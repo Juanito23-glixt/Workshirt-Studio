@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Big Dream | Printed Shirts</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome to Big Dream</h1>
+    <p>Printed shirts crafted with passion — wear the work behind every design.</p>
+    <p style="font-style: italic;">We specialize in bulk custom prints made for teams, events, and bold expressions.</p>
+  </header>
+
+  <main>
+    <section class="products">
+      <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Shirt 1" />
+        <h3>Classic Black Tee</h3>
+        <p>$25</p>
+        <button onclick="openModal('Classic Black Tee', 25)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Shirt 2" />
+        <h3>White Logo Tee</h3>
+        <p>$22</p>
+        <button onclick="openModal('White Logo Tee', 22)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Shirt 3" />
+        <h3>Gold Print Tee</h3>
+        <p>$28</p>
+        <button onclick="openModal('Gold Print Tee', 28)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Shirt 4" />
+        <h3>Urban Camo Tee</h3>
+        <p>$30</p>
+        <button onclick="openModal('Urban Camo Tee', 30)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Shirt 5" />
+        <h3>Minimal Text Tee</h3>
+        <p>$24</p>
+        <button onclick="openModal('Minimal Text Tee', 24)">Add to Cart</button>
+      </div>
+    </section>
+
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <button onclick="checkout()">Checkout via WhatsApp</button>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3 id="modal-title"></h3>
+
+      <label for="cantidad">Quantity:</label>
+      <input type="number" id="cantidad" min="1" value="1" />
+
+      <label for="instrucciones">
+        Design Notes: 
+        <span style="font-size: 0.85em; color: #c59d5f;">
+          (Please send logo image separately on WhatsApp after ordering)
+        </span>
+      </label>
+      <textarea id="instrucciones" placeholder="E.g. Logo on front center in gold ink"></textarea>
+
+      <p style="font-size: 0.9em; margin-top: 10px; color: #444;">
+        WhatsApp your logo/design to: 
+        <strong style="color: #c59d5f;">+1 (240) 921 9018</strong>
+      </p>
+
+      <button onclick="confirmAdd()">Confirm</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let modalItem = null;
+
+    function openModal(name, price) {
+      modalItem = { name, price };
+      document.getElementById("modal-title").textContent = name;
+      document.getElementById("cantidad").value = 1;
+      document.getElementById("instrucciones").value = '';
+      document.getElementById("modal").style.display = "block";
+    }
+
+    function confirmAdd() {
+      const qty = parseInt(document.getElementById("cantidad").value);
+      if (isNaN(qty) || qty < 1) {
+        alert("Please enter a valid quantity (1 or more).");
+        return;
+      }
+      const notes = document.getElementById("instrucciones").value.trim();
+      cart.push({ ...modalItem, qty, notes });
+      document.getElementById("modal").style.display = "none";
+      renderCart();
+    }
+
+    function renderCart() {
+      const list = document.getElementById("cart-items");
+      list.innerHTML = "";
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${item.name}</strong> — $${item.price} x ${item.qty}<br><em>${item.notes || ""}</em>`;
+        list.appendChild(li);
+      });
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      let message = "Hello! I'd like to place an order:%0A";
+      cart.forEach(item => {
+        message += `• ${item.name} — ${item.qty} pcs — $${item.price * item.qty}%0A  Notes: ${item.notes || 'N/A'}%0A`;
+      });
+      const phone = "12409219018";
+      const url = `https://wa.me/${phone}?text=${message}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
