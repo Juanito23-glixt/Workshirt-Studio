@@ -136,31 +136,31 @@
 
   <section class="productos">
     <div class="producto" data-name="Classic Black Tee" data-price="25">
-      <img src="https://via.placeholder.com/220x220?text=Black+Tee" />
+      <img src="https://via.placeholder.com/220x220?text=Black+Tee" alt="Classic Black Tee" />
       <h3>Classic Black Tee</h3>
       <p>$25</p>
       <button onclick="openModal('Classic Black Tee', 25)">Add to Cart</button>
     </div>
     <div class="producto" data-name="Vintage White Shirt" data-price="30">
-      <img src="https://via.placeholder.com/220x220?text=White+Shirt" />
+      <img src="https://via.placeholder.com/220x220?text=White+Shirt" alt="Vintage White Shirt" />
       <h3>Vintage White Shirt</h3>
       <p>$30</p>
       <button onclick="openModal('Vintage White Shirt', 30)">Add to Cart</button>
     </div>
     <div class="producto" data-name="Blue Denim Shirt" data-price="28">
-      <img src="https://via.placeholder.com/220x220?text=Denim+Shirt" />
+      <img src="https://via.placeholder.com/220x220?text=Denim+Shirt" alt="Blue Denim Shirt" />
       <h3>Blue Denim Shirt</h3>
       <p>$28</p>
       <button onclick="openModal('Blue Denim Shirt', 28)">Add to Cart</button>
     </div>
     <div class="producto" data-name="Red Sport Tee" data-price="22">
-      <img src="https://via.placeholder.com/220x220?text=Red+Tee" />
+      <img src="https://via.placeholder.com/220x220?text=Red+Tee" alt="Red Sport Tee" />
       <h3>Red Sport Tee</h3>
       <p>$22</p>
       <button onclick="openModal('Red Sport Tee', 22)">Add to Cart</button>
     </div>
     <div class="producto" data-name="Green Casual Shirt" data-price="27">
-      <img src="https://via.placeholder.com/220x220?text=Green+Shirt" />
+      <img src="https://via.placeholder.com/220x220?text=Green+Shirt" alt="Green Casual Shirt" />
       <h3>Green Casual Shirt</h3>
       <p>$27</p>
       <button onclick="openModal('Green Casual Shirt', 27)">Add to Cart</button>
@@ -170,7 +170,7 @@
   <section id="carrito">
     <h2>Your Cart</h2>
     <ul id="lista-carrito"></ul>
-    <p><strong>Total: $<span id="total">0</span></strong></p>
+    <p><strong>Total: $<span id="total">0.00</span></strong></p>
     <button onclick="checkout()">Place Order</button>
   </section>
 
@@ -178,9 +178,9 @@
   <div id="modal" class="modal">
     <div class="modal-content">
       <h3 id="modal-title"></h3>
-      <label>Quantity:</label>
+      <label for="cantidad">Quantity:</label>
       <input type="number" id="cantidad" min="1" value="1" />
-      <label>Design Notes (placement, logo, color, etc.):</label>
+      <label for="instrucciones">Design Notes (placement, logo, color, etc.):</label>
       <textarea id="instrucciones" placeholder="E.g. Logo on front center in gold ink"></textarea>
       <button onclick="confirmAdd()">Confirm</button>
     </div>
@@ -200,6 +200,10 @@
 
     function confirmAdd() {
       const qty = parseInt(document.getElementById("cantidad").value);
+      if (isNaN(qty) || qty < 1) {
+        alert("Please enter a valid quantity (1 or more).");
+        return;
+      }
       const notes = document.getElementById("instrucciones").value.trim();
       cart.push({ ...modalItem, qty, notes });
       document.getElementById("modal").style.display = "none";
@@ -212,7 +216,7 @@
       let total = 0;
       cart.forEach(item => {
         const li = document.createElement("li");
-        li.innerHTML = `<strong>${item.name}</strong> — $${item.price} x ${item.qty}<br><em>${item.notes}</em>`;
+        li.innerHTML = `<strong>${item.name}</strong> — $${item.price} x ${item.qty}<br><em>${item.notes || ""}</em>`;
         list.appendChild(li);
         total += item.price * item.qty;
       });
@@ -230,4 +234,22 @@
       });
       const total = document.getElementById("total").textContent;
       message += `Total: $${total}`;
-      const phone = "YOUR_PHONE_NUMBER"; // Replace with your real number, e.g. 123456789
+
+      // Aquí pon tu número con código país, sin símbolos ni espacios
+      const phone = "YOUR_PHONE_NUMBER";
+
+      // WhatsApp URL para enviar el mensaje
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
+
+    // Cerrar modal si clic fuera del contenido
+    window.onclick = function(event) {
+      const modal = document.getElementById("modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
