@@ -1,30 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: #121212;
+  color: #f0d980;
+  margin: 0;
   padding: 20px;
 }
+
 h1 {
-  color: #333;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #f0d980;
+  text-shadow: 0 0 5px #bfa13f;
 }
+
 .productos {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
+
 .producto {
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 200px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(191, 161, 63, 0.6);
+  padding: 15px;
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
+
+.producto:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(191, 161, 63, 0.9);
+}
+
 .producto img {
   width: 100%;
-  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 2px solid #bfa13f;
 }
+
+.producto h3 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  color: #f0d980;
+  font-size: 1.25rem;
+}
+
+.producto p {
+  margin: 0 0 15px 0;
+  font-weight: 500;
+  color: #d1b54a;
+}
+
+button {
+  background: #bfa13f;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #121212;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  width: 100%;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(191, 161, 63, 0.6);
+}
+
+button:hover {
+  background: #f0d980;
+  color: #121212;
+  box-shadow: 0 6px 12px rgba(191, 161, 63, 0.9);
+}
+
 .btn {
   display: inline-block;
   margin-top: 20px;
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: white;
+  padding: 12px 25px;
+  background-color: #bfa13f;
+  color: #121212;
   text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(191, 161, 63, 0.6);
+  transition: background-color 0.3s ease;
+  text-align: center;
 }
+
+.btn:hover {
+  background-color: #f0d980;
+  color: #121212;
+  box-shadow: 0 6px 14px rgba(191, 161, 63, 0.9);
+}
+
+#carrito ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#carrito li {
+  padding: 8px 0;
+  border-bottom: 1px solid #3a3a3a;
+  color: #f0d980;
+  font-weight: 500;
+}
+
+#carrito p strong {
+  color: #bfa13f;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .productos {
+    flex-direction: column;
+    align-items: center;
+  }
+  .producto {
+    width: 90%;
+  }
+}
+
