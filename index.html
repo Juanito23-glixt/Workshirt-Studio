@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Dream Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Big Dream</h1>
+        <p class="tagline">Printed shirts designed with passion and crafted for your vision.</p>
+    </header>
+
+    <main>
+        <section class="products">
+            <div class="product">
+                <img src="https://i.ibb.co/gZyH8tC1/IMG-5714.jpg" alt="Hoodie">
+                <h2>Hoodie</h2>
+                <p>Get the price when you order</p>
+                <button onclick="openModal('Hoodie')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/gZyH8tC1/IMG-5714.jpg" alt="T-Shirt">
+                <h2>T-Shirt</h2>
+                <p>Get the price when you order</p>
+                <button onclick="openModal('T-Shirt')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/gZyH8tC1/IMG-5714.jpg" alt="Sweater">
+                <h2>Sweater</h2>
+                <p>Get the price when you order</p>
+                <button onclick="openModal('Sweater')">Add to Cart</button>
+            </div>
+        </section>
+
+        <div class="modal" id="cartModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3>Customize Your Order</h3>
+                <form id="orderForm">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" min="1" required>
+
+                    <label for="size">Size:</label>
+                    <select id="size" required>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+
+                    <label for="notes">Design Notes <span class="small">(Send image separately via WhatsApp)</span>:</label>
+                    <textarea id="notes" rows="4" placeholder="e.g., Logo on left sleeve"></textarea>
+
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+
+        <section class="cart" id="cart"></section>
+
+        <div class="finalize">
+            <button onclick="sendOrder()">Place Order via WhatsApp</button>
+        </div>
+    </main>
+
+    <script>
+        let currentProduct = '';
+        let cart = [];
+
+        function openModal(product) {
+            currentProduct = product;
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const quantity = document.getElementById('quantity').value;
+            const size = document.getElementById('size').value;
+            const notes = document.getElementById('notes').value;
+            cart.push({ product: currentProduct, quantity, size, notes });
+            updateCart();
+            closeModal();
+        });
+
+        function updateCart() {
+            const cartSection = document.getElementById('cart');
+            cartSection.innerHTML = '<h3>Your Cart</h3>';
+            cart.forEach((item, index) => {
+                cartSection.innerHTML += `
+                    <div class="cart-item">
+                        <p><strong>${item.product}</strong> - ${item.quantity} pcs - Size ${item.size}</p>
+                        <p>${item.notes}</p>
+                        <button onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) return alert("Your cart is empty.");
+            let message = "Hello! I'd like to place the following order:%0A";
+            cart.forEach(item => {
+                message += `• ${item.product} - ${item.quantity} pcs - Size ${item.size}%0ANotes: ${item.notes}%0A%0A`;
+            });
+            const phoneNumber = "12409219018";
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+        }
+    </script>
+</body>
+</html>
